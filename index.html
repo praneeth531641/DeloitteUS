@@ -116,7 +116,7 @@
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             }
             .side-header {
-                background:var(--primary-green);
+                background: #8DB600;
                 color: #fff;
                 width: 100%;
                 min-height: auto;
@@ -180,8 +180,8 @@
             .q2-form-wrapper {
                 max-width: 1280px;
                 margin: 2em 1em;
-                /* FIX: Replaced incorrect padding inherited from desktop styles */
-                padding: 0;
+                padding-left: calc(120px + 1.2em);
+                padding-right: 1.2em;
                 box-sizing: border-box;
             }
         }
@@ -469,7 +469,7 @@
             <div class="option-list">
                 <div class="option-card">
                     <img src="assets/option1.jpg" alt="A robotic figure" class="option-image" />
-                    
+                    <div class="option-label">Standard eLearning</div>
                     <label class="radio-control">
                         <input type="radio" name="scenarioResponse" value="standard" />
                         <span class="checkmark"></span>
@@ -478,7 +478,7 @@
 
                 <div class="option-card">
                     <img src="assets/option2.png" alt="Colorful building blocks" class="option-image" />
-                
+                    <div class="option-label">Complex eLearning</div>
                     <label class="radio-control">
                         <input type="radio" name="scenarioResponse" value="complex" />
                         <span class="checkmark"></span>
@@ -487,7 +487,7 @@
 
                 <div class="option-card">
                     <img src="assets/option3.png" alt="Person working on a laptop" class="option-image" />
-                    
+                    <div class="option-label">eLearning</div>
                     <label class="radio-control">
                         <input type="radio" name="scenarioResponse" value="elearning" />
                         <span class="checkmark"></span>
@@ -496,7 +496,7 @@
 
                 <div class="option-card">
                     <img src="assets/option4.png" alt="A complex diagram" class="option-image" />
-                    
+                    <div class="option-label">Medium Complexity</div>
                     <label class="radio-control">
                         <input type="radio" name="scenarioResponse" value="medium" />
                         <span class="checkmark"></span>
@@ -600,10 +600,10 @@
                 const div = document.createElement('div');
                 div.className = 'input-group';
                 div.innerHTML = `
-                                <label>Photo ${i + 1}:</label>
-                                <input type="number" min="1" class="photoW" placeholder="Width (W)" required>
-                                <input type="number" min="1" class="photoH" placeholder="Height (H)" required>
-                            `;
+                            <label>Photo ${i + 1}:</label>
+                            <input type="number" min="1" class="photoW" placeholder="Width (W)" required>
+                            <input type="number" min="1" class="photoH" placeholder="Height (H)" required>
+                        `;
                 photosInputs.appendChild(div);
             }
             if (N > 0) submitQ2.disabled = false;
@@ -659,9 +659,9 @@
 
                 if (W < L || H < L) {
                     results.push('UPLOAD ANOTHER');
-                } else if (W === H) {
-                    results.push('ACCEPTED');
-                } else {
+                }  else if (W === L && H === L) { // Checks if W and H are exactly L
+    results.push('ACCEPTED');
+} else {
                     results.push('CROP IT');
                 }
             }
