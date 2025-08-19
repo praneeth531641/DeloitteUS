@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HTML DEMO</title>
+    <style>
+        /* Global variables and body styles must remain outside media queries to apply universally */
+        
+         :root {
+            --primary-green: #6aa84f;
+            --light-green-bg: #e5efdb;
+            --header-green-bg: #b6d7a8;
+            --text-dark: #222;
+            --text-light-gray: #6a6a6a;
+            --border-color: #93c47d;
+            --disabled-bg: #ccc;
+        }
+        
+        body {
+            background: #fdfdfd;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* --- Desktop Styles (1024px and up) --- */
+        
+        @media (min-width: 1024px) {
+            .header-wrapper {
+                max-width: 1280px;
+                margin: 2em auto 0 auto;
+            }
+            .question-container {
+                display: flex;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            }
+            .side-header {
+                background: var(--primary-green);
+                color: #fff;
+                min-width: 120px;
+                display: flex;
+                flex-direction: column;
+                margin-right: 1.5em;
+                text-align: center;
+                padding: 1em 0;
+                font-weight: bold;
+                font-size: 1.4em;
+                user-select: none;
+            }
+            .side-header .number {
+                font-size: 1.2em;
+                margin-top: 0.5em;
+                font-weight: 500;
+            }
+            .question-body {
+                flex: 1;
+                padding-right: 1.5em;
+                color: var(--text-dark);
+                font-size: 1.07em;
+                line-height: 1.3;
+            }
+            .question-desc {
+                background: var(--header-green-bg);
+            }
+            .question-body p {
+                margin-top: 0;
+                margin-bottom: 1rem;
+            }
+            .explanation {
+                font-style: italic;
+                color: #3d85c6;
+                font-size: 1em;
+                box-sizing: border-box;
+            }
+            .option-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 2em;
+                max-width: 1280px;
+                margin: 2em auto;
+                padding: 0 1.5em;
+            }
+            .option-card {
+                background: var(--light-green-bg);
+                border-radius: 8px;
+                padding: 1em 0.8em 3.5em 0.8em;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                user-select: none;
+                border: 2px solid transparent;
+                transition: border 0.2s, transform 0.2s;
+                flex: 0 1 220px;
+            }
+            .q2-form-wrapper {
+                max-width: 1280px;
+                margin: 2em auto;
+                padding-left: calc(120px + 1.5em);
+                padding-right: 1.5em;
+                box-sizing: border-box;
+            }
+        }
+        /* --- Tablet Styles (768px to 1023px) --- */
+        
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .header-wrapper {
+                margin: 1em 1em 0 1em;
+            }
+            .question-container {
+                display: flex;
+                flex-direction: column;
+                /* Stacks vertically */
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            }
+            .side-header {
+                background:var(--primary-green);
+                color: #fff;
+                width: 100%;
+                min-height: auto;
+                text-align: center;
+                font-weight: bold;
+                font-size: 1.2em;
+                user-select: none;
+            }
+            .question-body {
+                color: var(--text-dark);
+                font-size: 1em;
+                line-height: 1.4;
+            }
+            .question-desc {
+                background: #E7F0D5;
+            }
+            .q-number {
+                text-align: left;
+                padding: 0 0 0 0;
+                display: inline-block;
+                float: left;
+            }
+            .number {
+                text-align: right;
+                padding: 0 0 0 0;
+                display: inline-block;
+                float: right;
+            }
+            .question-body p {
+                margin-top: 0;
+                margin-bottom: 1rem;
+            }
+            .explanation {
+                font-style: italic;
+                color: #3d85c6;
+                font-size: 0.9em;
+                /* Symmetrical padding on mobile */
+                box-sizing: border-box;
+            }
+            .option-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1.5em;
+                max-width: 1280px;
+                margin: 2em auto;
+                padding: 0 1.5em;
+            }
+            .option-card {
+                background: var(--light-green-bg);
+                border-radius: 8px;
+                padding: 1em 0.8em 3.5em 0.8em;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                user-select: none;
+                border: 2px solid transparent;
+                flex: 0 1 240px;
+            }
+            .q2-form-wrapper {
+                max-width: 1280px;
+                margin: 2em 1em;
+                /* FIX: Replaced incorrect padding inherited from desktop styles */
+                padding: 0;
+                box-sizing: border-box;
+            }
+        }
+        /* --- Mobile Styles (up to 767px) --- */
+        
+        @media (max-width: 767px) {
+            .header-wrapper {
+                margin: 1em 1em 0 1em;
+            }
+            .question-container {
+                display: flex;
+                flex-direction: column;
+                /* Stacks vertically */
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            }
+            .side-header {
+                background: var(--primary-green);
+                color: #fff;
+                width: 100%;
+                min-height: auto;
+                text-align: center;
+                font-weight: bold;
+                font-size: 1.2em;
+                user-select: none;
+            }
+            .question-body {
+                color: var(--text-dark);
+                font-size: 1em;
+                line-height: 1.4;
+            }
+            .question-desc {
+                background: var(--header-green-bg);
+            }
+            .q-number {
+                text-align: left;
+                padding: 0 0 0 0;
+                display: inline-block;
+                float: left;
+            }
+            .number {
+                text-align: right;
+                padding: 0 0 0 0;
+                display: inline-block;
+                float: right;
+            }
+            .question-body p {
+                margin-top: 0;
+                margin-bottom: 1rem;
+            }
+            .explanation {
+                font-style: italic;
+                color: #3d85c6;
+                font-size: 0.9em;
+                /* Symmetrical padding on mobile */
+                box-sizing: border-box;
+            }
+            .option-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1em;
+                margin: 1.5em auto;
+                padding: 0 1em;
+            }
+            .option-card {
+                background: var(--light-green-bg);
+                border-radius: 8px;
+                padding: 1em 0.8em 3.5em 0.8em;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                user-select: none;
+                border: 2px solid transparent;
+                flex: 1 1 100%;
+                /* Full width on mobile */
+            }
+            .q2-form-wrapper {
+                margin: 2em 1em;
+                padding: 0;
+            }
+        }
+        /* Styles that are consistent across all views can be defined once */
+        
+        #question2 {
+            display: none;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-color);
+        }
+        
+        .option-image {
+            width: 100%;
+            max-width: 180px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        
+        .option-label {
+            margin-top: 0.8em;
+            font-size: 1em;
+            color: var(--text-dark);
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .radio-control {
+            position: absolute;
+            bottom: 1em;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 27px;
+            height: 27px;
+            cursor: pointer;
+            display: block;
+        }
+        
+        .radio-control input[type="radio"] {
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s;
+            pointer-events: none;
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            background-color: var(--primary-green);
+            border-radius: 2px;
+        }
+        
+        .radio-control input[type="radio"]:checked+.checkmark {
+            border-color: #5a9342;
+        }
+        
+        .radio-control input[type="radio"]:checked+.checkmark:after {
+            display: block;
+        }
+        
+        .radio-control input[type="radio"]:focus-visible+.checkmark {
+            box-shadow: 0 0 0 3px var(--header-green-bg);
+        }
+        
+        .submit-btn-container {
+            text-align: center;
+            margin: 2em 0;
+        }
+        
+        .submit-btn {
+            width: 340px;
+            max-width: 90%;
+            padding: 0.8em 1.2em;
+            background: var(--disabled-bg);
+            color: var(--text-light-gray);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: not-allowed;
+            transition: background 0.2s, color 0.2s;
+            font-weight: bold;
+        }
+        
+        .submit-btn.active {
+            background: var(--border-color);
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+        
+        .submit-btn.active:hover {
+            background: #83b46d;
+        }
+        
+        #formQ2 {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2em;
+            max-width: 480px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .q2-form-wrapper label {
+            font-weight: bold;
+        }
+        
+        .q2-form-wrapper input[type="number"] {
+            font-size: 1em;
+            padding: 8px 10px;
+            border-radius: 4px;
+            border: 1.5px solid #ccc;
+        }
+        
+        #photosInputs {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
+            margin-top: 0.5em;
+        }
+        
+        .q2-btn {
+            background: var(--border-color);
+            color: var(--text-dark);
+            border: none;
+            padding: 10px 18px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        
+        .q2-btn[disabled] {
+            background: var(--disabled-bg);
+            color: var(--text-light-gray);
+            cursor: not-allowed;
+        }
+        
+        #outputQ2 {
+            white-space: pre-wrap;
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 1.1em;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="question1">
+        <div class="header-wrapper">
+            <div class="question-container">
+                <div class="side-header">
+
+                    <div class="q-number">Question</div>
+                    <div class="number">01/02</div>
+                </div>
+                <div class="question-body">
+                    <div class="question-desc">
+                        <p>Below are three options on how to respond to the scenario above. Image question the client side pings you and tells that they have a personal emergency and will need to be away from work.</p>
+                        <p><b>You will ...</b></p>
+
+                    </div>
+                    <div class="explanation">Below are three options on how to respond to the scenario above. Please choose the response that resonates most with you and click <b>Next</b> to proceed.</div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <form id="formQ1">
+            <div class="option-list">
+                <div class="option-card">
+                    <img src="assets/option1.jpg" alt="A robotic figure" class="option-image" />
+                    
+                    <label class="radio-control">
+                        <input type="radio" name="scenarioResponse" value="standard" />
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <div class="option-card">
+                    <img src="assets/option2.png" alt="Colorful building blocks" class="option-image" />
+                
+                    <label class="radio-control">
+                        <input type="radio" name="scenarioResponse" value="complex" />
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <div class="option-card">
+                    <img src="assets/option3.png" alt="Person working on a laptop" class="option-image" />
+                    
+                    <label class="radio-control">
+                        <input type="radio" name="scenarioResponse" value="elearning" />
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <div class="option-card">
+                    <img src="assets/option4.png" alt="A complex diagram" class="option-image" />
+                    
+                    <label class="radio-control">
+                        <input type="radio" name="scenarioResponse" value="medium" />
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="submit-btn-container">
+                <button type="submit" id="submitQ1" class="submit-btn" disabled>Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="question2">
+        <div class="header-wrapper">
+            <div class="question-container">
+                <div class="side-header">
+
+                    <div class="q-number">Question</div>
+                    <div class="number">02/02</div>
+                </div>
+                <div class="question-body">
+                    <div class="question-desc">
+                        <p>Roy wants to change his profile picture. Facebook has a restriction that the minimum dimension of a picture must be L x L.</p>
+                        <p><b>You will ...</b></p>
+                    </div>
+                    <div class="explanation">Write a program that checks 'N' photos of various dimensions (W x H) and prints the appropriate status for each one.</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="q2-form-wrapper">
+            <form id="formQ2">
+                <div class="input-group">
+                    <label for="inputL">L (min dimension):</label>
+                    <input type="number" id="inputL" min="1" placeholder="e.g., 180">
+                </div>
+                <div class="input-group">
+                    <label for="inputN">N (number of photos):</label>
+                    <input type="number" id="inputN" min="1" placeholder="e.g., 3">
+                </div>
+                <div id="photosInputs"></div>
+                <div class="button-group">
+                    <button type="button" id="generateInputsBtn" class="q2-btn" disabled>Generate Inputs</button>
+                    <button type="submit" id="submitQ2" class="q2-btn" disabled>Check Photos</button>
+                    <button type="button" id="loadSampleBtn" class="q2-btn">Load Sample</button>
+                </div>
+                <pre id="outputQ2"></pre>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- Question 1 Logic ---
+        const formQ1 = document.getElementById('formQ1');
+        const submitQ1 = document.getElementById('submitQ1');
+
+        formQ1.addEventListener('change', () => {
+            const isSelected = formQ1.querySelector('input[name="scenarioResponse"]:checked');
+            submitQ1.disabled = !isSelected;
+            if (isSelected) {
+                submitQ1.classList.add('active');
+            } else {
+                submitQ1.classList.remove('active');
+            }
+        });
+
+        formQ1.addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('question1').style.display = 'none';
+            document.getElementById('question2').style.display = 'block';
+        });
+
+        // --- Question 2 Logic ---
+        const inputL = document.getElementById('inputL');
+        const inputN = document.getElementById('inputN');
+        const generateInputsBtn = document.getElementById('generateInputsBtn');
+        const photosInputs = document.getElementById('photosInputs');
+        const formQ2 = document.getElementById('formQ2');
+        const submitQ2 = document.getElementById('submitQ2');
+        const outputQ2 = document.getElementById('outputQ2');
+        const loadSampleBtn = document.getElementById('loadSampleBtn');
+
+        function validateLAndN() {
+            const L = parseInt(inputL.value);
+            const N = parseInt(inputN.value);
+            generateInputsBtn.disabled = !(L > 0 && N > 0);
+        }
+        inputL.addEventListener('input', validateLAndN);
+        inputN.addEventListener('input', validateLAndN);
+
+        generateInputsBtn.addEventListener('click', () => {
+            photosInputs.innerHTML = '';
+            submitQ2.disabled = true;
+            outputQ2.textContent = '';
+
+            const N = parseInt(inputN.value);
+            if (isNaN(N) || N < 1) return;
+
+            for (let i = 0; i < N; i++) {
+                const div = document.createElement('div');
+                div.className = 'input-group';
+                div.innerHTML = `
+                                <label>Photo ${i + 1}:</label>
+                                <input type="number" min="1" class="photoW" placeholder="Width (W)" required>
+                                <input type="number" min="1" class="photoH" placeholder="Height (H)" required>
+                            `;
+                photosInputs.appendChild(div);
+            }
+            if (N > 0) submitQ2.disabled = false;
+        });
+
+        loadSampleBtn.addEventListener('click', () => {
+            const sample = {
+                L: 180,
+                N: 3,
+                photos: [{
+                    W: 640,
+                    H: 480
+                }, {
+                    W: 120,
+                    H: 300
+                }, {
+                    W: 180,
+                    H: 180
+                }]
+            };
+            inputL.value = sample.L;
+            inputN.value = sample.N;
+            validateLAndN();
+            generateInputsBtn.click();
+
+            const widthInputs = photosInputs.querySelectorAll('.photoW');
+            const heightInputs = photosInputs.querySelectorAll('.photoH');
+
+            for (let i = 0; i < sample.N; i++) {
+                widthInputs[i].value = sample.photos[i].W;
+                heightInputs[i].value = sample.photos[i].H;
+            }
+            submitQ2.click();
+        });
+
+        formQ2.addEventListener('submit', (e) => {
+            e.preventDefault();
+            outputQ2.textContent = '';
+
+            const L = parseInt(inputL.value);
+            const widthInputs = photosInputs.querySelectorAll('.photoW');
+            const heightInputs = photosInputs.querySelectorAll('.photoH');
+            let results = [];
+
+            for (let i = 0; i < widthInputs.length; i++) {
+                const W = parseInt(widthInputs[i].value);
+                const H = parseInt(heightInputs[i].value);
+
+                if (isNaN(W) || isNaN(H)) {
+                    results.push(`Photo ${i+1}: Invalid input`);
+                    continue;
+                }
+
+                if (W < L || H < L) {
+                    results.push('UPLOAD ANOTHER');
+                } else if (W === H) {
+                    results.push('ACCEPTED');
+                } else {
+                    results.push('CROP IT');
+                }
+            }
+            outputQ2.textContent = results.join('\n');
+        });
+    </script>
+</body>
+
+</html>
